@@ -133,10 +133,10 @@ class HBNBCommand(cmd.Cmd):
                 key = re.search('^.+=', argu[i]).group()[0:-1]
                 val = re.search('=.+$', argu[i]).group()[1:]
                 value = ''
-                if (re.search('^\\d+$', val)):
+                if (re.search('^-?\\d+$', val)):
                     #integer
                     value = int(val)
-                elif (re.search('^//d+.//d+$', val)):
+                elif (re.search('^-?//d+.//d+$', val)):
                     #float
                     value = float(val)
                 else:
