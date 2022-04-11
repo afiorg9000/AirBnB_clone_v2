@@ -120,16 +120,18 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        elif args[0] not in HBNBCommand.classes:
+        argu = args[0].split()
+        print(argu)
+        if argu[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
 
         kDict = {}
 
-        for i in range(1, len(args)):
-            if (re.search('^.+=.+$', args[i])):
-                key = re.search('^.+=', args[i]).group()[0:-1]
-                val = re.search('=.+$', args[i]).group()[1:]
+        for i in range(1, len(argu)):
+            if (re.search('^.+=.+$', argu[i])):
+                key = re.search('^.+=', argu[i]).group()[0:-1]
+                val = re.search('=.+$', argu[i]).group()[1:]
                 value = ''
                 if (re.search('^\\d+$', val)):
                     #integer
@@ -142,7 +144,7 @@ class HBNBCommand(cmd.Cmd):
                     value = val.replace('_', ' ')
                 kDict[key] = value
 
-        new_instance = HBNBCommand.classes[args[0]](kwargs=kDict)
+        new_instance = HBNBCommand.classes[argu[0]](kDict)
         storage.save()
         print(new_instance.id)
         storage.save()
