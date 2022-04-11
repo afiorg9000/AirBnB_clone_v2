@@ -74,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] == '{' and pline[-1] =='}'\
+                    if pline[0] == '{' and pline[-1] == '}'\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -121,7 +121,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         argu = args[0].split()
-        print(argu)
         if argu[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
@@ -134,13 +133,13 @@ class HBNBCommand(cmd.Cmd):
                 val = re.search('=.+$', argu[i]).group()[1:]
                 value = ''
                 if (re.search('^-?\\d+$', val)):
-                    #integer
+                    # integer
                     value = int(val)
                 elif (re.search('^-?//d+.//d+$', val)):
-                    #float
+                    # float
                     value = float(val)
                 else:
-                    #string
+                    # string
                     value = val.replace('_', ' ')
                 kDict[key] = value
 
@@ -342,6 +341,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
