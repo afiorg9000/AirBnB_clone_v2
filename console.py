@@ -116,7 +116,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, *args):
         """ Create an object of any class"""
-        regex_value = ['^//d+$', '^//d+.//d+$']
+        regex_value = ['^-?//d+$', '^-?//d+.//d+$', '^".+"$']
         if not args:
             print("** class name missing **")
             return
@@ -125,6 +125,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
+        print("TEST TEST TEST THERE IS CANNED FOOD BEFORE YOU")
         kDict = {}
 
         for i in range(1, len(argu)):
@@ -132,19 +133,20 @@ class HBNBCommand(cmd.Cmd):
                 key = re.search('^.+=', argu[i]).group()[0:-1]
                 val = re.search('=.+$', argu[i]).group()[1:]
                 value = ''
-                if (re.search('^-?\\d+$', val)):
+                if (re.search(regex_value[0], val)):
                     # integer
                     value = int(val)
-                elif (re.search('^-?//d+.//d+$', val)):
+                elif (re.search(regex_value[1], val)):
                     # float
                     value = float(val)
-                else:
+                elif (re.search(regex_value[2], val)):
                     # string
-                    value = val.replace('_', ' ')
+                    value = val.replace('_', ' ')[1:-1].replace('//"', '"')
+                else:
+                    continue
                 kDict[key] = value
-
-        new_instance = HBNBCommand.classes[argu[0]](kDict)
-        storage.save()
+        new_instance = HBNBCommand.classes[argu[0]]()
+        new_instance.__dict__.update(kDict)
         print(new_instance.id)
         storage.save()
 
