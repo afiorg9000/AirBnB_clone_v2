@@ -125,7 +125,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        print("TEST TEST TEST THERE IS CANNED FOOD BEFORE YOU")
         kDict = {}
 
         for i in range(1, len(argu)):
