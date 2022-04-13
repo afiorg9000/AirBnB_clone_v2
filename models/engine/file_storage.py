@@ -51,8 +51,8 @@ class FileStorage:
             with open(FileStorage.__file_path, 'r') as f:
                 temp = json.load(f)
                 for key, val in temp.items():
-                    self.all()[key] = classes[val['__class__']](**val)
-        except FileNotFoundError:
+                    self.__objects[key] = classes[temp[val]['__class__']](**temp[key])
+        except:
             pass
 
     def delete(self, obj=None):
