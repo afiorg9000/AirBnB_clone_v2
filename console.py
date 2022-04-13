@@ -131,18 +131,9 @@ class HBNBCommand(cmd.Cmd):
             if (re.search('^.+=.+$', argu[i])):
                 key = re.search('^.+=', argu[i]).group()[0:-1]
                 val = re.search('=.+$', argu[i]).group()[1:]
-                value = ''
-                if (re.search(regex_value[0], val)):
-                    # integer
-                    value = int(val)
-                elif (re.search(regex_value[1], val)):
-                    # float
-                    value = float(val)
-                elif (re.search(regex_value[2], val)):
-                    # string
+                value = eval(val)
+                if type(value) == str:
                     value = val.replace('_', ' ')[1:-1].replace('//"', '"')
-                else:
-                    continue
                 kDict[key] = value
         new_instance = HBNBCommand.classes[argu[0]]()
         new_instance.__dict__.update(kDict)
