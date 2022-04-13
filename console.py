@@ -144,7 +144,6 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     continue
                 kDict[key] = value
-        print(kDict)
         new_instance = HBNBCommand.classes[argu[0]]()
         new_instance.__dict__.update(kDict)
         print(new_instance.id)
