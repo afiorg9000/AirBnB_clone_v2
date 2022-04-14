@@ -148,7 +148,6 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[argu[0]]()
         new_instance.__dict__.update(kDict)
         print(new_instance.id)
-        new_instance._sa_instance_state=''
         storage.new(new_instance)
         storage.save()
 
