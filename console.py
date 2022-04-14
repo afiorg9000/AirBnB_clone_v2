@@ -124,7 +124,6 @@ class HBNBCommand(cmd.Cmd):
         if argu[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-
         kDict = {}
 
         for i in range(1, len(argu)):
@@ -147,7 +146,6 @@ class HBNBCommand(cmd.Cmd):
 
         new_instance = HBNBCommand.classes[argu[0]]()
         new_instance.__dict__.update(kDict)
-        new_instance._sa_instance_state = ''
         print(new_instance.id)
         storage.new(new_instance)
         storage.save()
