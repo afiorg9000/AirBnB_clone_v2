@@ -116,7 +116,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, *args):
         """ Create an object of any class"""
-        regex_value = ['^-?//d+$', '^-?//d+.//d+$', '^".+"$']
+        regex_value = ['^-?//d+.//d+$', '^".+"$']
         if not args:
             print("** class name missing **")
             return
@@ -132,17 +132,16 @@ class HBNBCommand(cmd.Cmd):
                 val = re.search('=.+$', argu[i]).group()[1:]
                 value = ''
                 if re.search(regex_value[0], val):
-                   #integer
-                   value = int(val)
-                elif re.search(regex_value[1], val):
                     # float
                     value = float(val)
-                elif re.search(regex_value[2], val):
+                elif re.search(regex_value[1], val):
                     # string
                     value = val.replace('_', ' ')[1:-1].replace('//"', '"')
                 else:
-                    continue
+                    #integer
+                    value = eval(val)
                 kDict[key] = value
+        print(kDict)
 
         new_instance = HBNBCommand.classes[argu[0]]()
         new_instance.__dict__.update(kDict)
@@ -160,6 +159,8 @@ class HBNBCommand(cmd.Cmd):
         new = args.partition(" ")
         c_name = new[0]
         c_id = new[2]
+
+        print(args)
 
         # guard against trailing args
         if c_id and ' ' in c_id:
