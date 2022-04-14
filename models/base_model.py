@@ -51,9 +51,9 @@ class BaseModel:
         dictionary['updated_at'] = self.updated_at.isoformat()
         return dictionary
 
-        self.name = kwargs['name']
-        self.state = kwargs["state"]
-        kwargs ={'name': "state"}
+        if "_sa_instance_state" in new_dict:
+            del new_dict["_sa_instance_state"]
+        return new_dict
 
     def delete(self):
         """delete the current instance from the storage models.storage"""
