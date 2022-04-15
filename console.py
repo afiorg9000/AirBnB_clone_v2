@@ -141,6 +141,7 @@ class HBNBCommand(cmd.Cmd):
                     #integer
                     value = eval(val)
                 kDict[key] = value
+        print(kDict)
 
         new_instance = HBNBCommand.classes[argu[0]]()
         new_instance.__dict__.update(kDict)
