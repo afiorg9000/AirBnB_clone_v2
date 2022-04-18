@@ -10,6 +10,7 @@ from models.user import User
 from models.place import Place
 from models.review import Review
 from models.amenity import Amenity
+from sqlalchemy.orm import sessionmaker, scoped_session
 
 class DBStorage:
     """This class manages storage of hbnb models in JSON format"""
@@ -30,16 +31,17 @@ class DBStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        self.__session = Session(engine)
 
         if cls is None:
-            return self.all()
+            objs_query = self.__session.query(State).all()
+            objs_query.extend(self.__session.query(City).all())
+
         else:
-            newDict = {}
-        for key, value in self.__objects.items():
-            if isinstance(value, cls):
-                newDict[key] = value
-        return newDict
+            if type(cls) == str:
+                cls = eval(cls)
+            objs_query = self.__session.query(cls)
+        return {"{}.{}".format(type(objt).__name__, objt.id):
+                objt for objt in objs_query}
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
