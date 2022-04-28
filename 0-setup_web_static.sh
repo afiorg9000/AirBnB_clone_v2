@@ -15,6 +15,6 @@ echo '<html>
 </html>' > /data/web_static/releases/test/index.html
 sudo ln -s /data/web_static/current /data/web_static/releases/test/
 sudo chown -R ubuntu:ubuntu /data/
-sed -i "58i \\\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}" /etc/nginx/sites-available/default
+sed -i "58i \\\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}" /etc/nginx/sites-enabled/default
 sudo service nginx restart
 exit 0
